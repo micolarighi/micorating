@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Micorating</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+		<script src="https://unpkg.com/htmx.org@1.9.12/dist/htmx.js" integrity="sha384-qbtR4rS9RrUMECUWDWM2+YGgN3U4V4ZncZ0BvUcg9FGct0jqXz3PUdVpU1p0yrXS" crossorigin="anonymous"></script>
+	</head>
+	<body>
+		<div class="container grid p-6">
+			<div>
+				<ol type="1" class="is-size-4" id="rating-list">
+					{{range .RatingList}}
+						{{block "rating-list-element" .}}
+							<li>{{.Title}} <span class="ml-5">{{.Rating}}/10</span></li>		
+						{{end}}
+					{{end}}
+				</ol>
+			</div>
+
+			<div>
+				<form hx-post="/add-rating/" hx-target="#rating-list" hx-swap="beforeend">
+					<div class="mb-4">
+						<label for="title">Title</label>
+						<input class="input is-info" type="text" name="title" title="title" placeholder="Enter Title ..">
+					</div>
+					<div>
+						<label for="rating">Rating</label>
+						<input class="input" type="number" min="0" max="10" name="rating" title="rating" placeholder="Enter Rating ..">
+					</div>
+					<div class="mt-5">
+						<button type="submit" class="button is-dark">Add rating</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
